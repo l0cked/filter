@@ -3,9 +3,30 @@
 /* Cloud obj */
 
 var Cloud = function(elem) {
+
 	var self = this;
+
 	this.divCloudWrapper = elem;
+
+	this.def = function(elem) { // set default .cloud-wrapper position if not set
+
+		var def = {
+			width: 500,
+			height: 500
+		}
+
+		def.left = (document.body.offsetWidth / 2) - (def.width / 2);
+		def.top = (document.body.offsetHeight / 2) - (def.height / 2);
+
+		if ( !elem.style.left ) elem.style.left = def.left + 'px';
+		if ( !elem.style.top ) elem.style.top = def.top + 'px';
+		if ( !elem.style.width ) elem.style.width = def.width + 'px';
+		if ( !elem.style.height ) elem.style.height = def.height + 'px';
+	}
+
 	this.init = function() {
+
+		this.def(this.divCloudWrapper);
 
 		this.divCloudWrapper.onmousedown = this.moveOnMouseDown;
 
@@ -214,19 +235,22 @@ var Cloud = function(elem) {
 var clouds = {};
 
 function load() {
+
 	var imgElem = document.querySelector('.bg-img'),
 		img = new Image();
 	img.src = imgElem.getAttribute('data-src');
 	img.onload = function() {
 
-		var divCloudWrapperAll = document.querySelectorAll('.cloud-wrapper');
-
 		imgElem.removeAttribute('data-src');
 		imgElem.setAttribute('src', this.src);
 
+		var divCloudWrapperAll = document.querySelectorAll('.cloud-wrapper');
+
 		for ( var i = 0; i < divCloudWrapperAll.length; i++ ) {
+
 			clouds[i] = new Cloud(divCloudWrapperAll[i]);
 			clouds[i].draw();
+
 		}
 
 		document.body.classList.add('load');
