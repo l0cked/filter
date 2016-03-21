@@ -139,7 +139,7 @@ var Cloud = function(elem) {
 		);
 	}
 	this.hitTest = function(index) {
-		for ( var i = 0; i < this.elements.length; i++ ) {
+		for ( var i in this.elements ) {
 			if ( index == i ) continue; // if delete this str = infinity loop
 			if ( this.isOverride(this.elements[index], this.elements[i]) ) {
 				return true;
@@ -181,7 +181,7 @@ var Cloud = function(elem) {
 	this.draw = function() {
 		this.init();
 		this.beforeDraw();
-		for ( var i = 0; i < this.elements.length; i++ ) {
+		for ( var i in this.elements ) {
 			var element = this.elements[i],
 				item = this.items[element.pos],
 				x = element.left,
@@ -208,26 +208,6 @@ var Cloud = function(elem) {
 }
 
 /* Cloud obj end */
-
-/* Local obj */
-
-var Local = function() {
-	this.tosave = [];
-	this.add = function(name, value) {
-		if ( !this.support ) return;
-		this.tosave[name] = value;
-	}
-	this.save = function() {
-		if ( !this.support ) return;
-	}
-}
-
-var local = new Local();
-local.add('testname', 'testvalue');
-
-console.dir(local);
-
-/* Local obj end */
 
 /* main */
 
