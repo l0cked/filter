@@ -1,14 +1,132 @@
 'use strict';
 
+function draggable(elem, options={}) {
+
+	if ( options.remove ) {
+		elem.onmousedown = null;
+		return;
+	}
+
+	var moveObject = {},
+
+	onMouseMove = function(e) {
+		if ( !moveObject.move ) {
+			var moveX = e.pageX - moveObject.downX,
+				moveY = e.pageY - moveObject.downY,
+				coords = elem.getCoords();
+			if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
+				return;
+			}
+			moveObject.move = true;
+			moveObject.shiftX = moveObject.downX - coords.left;
+			moveObject.shiftY = moveObject.downY - coords.top;
+		}
+		elem.style.left = e.pageX - moveObject.shiftX + 'px';
+		elem.style.top = e.pageY - moveObject.shiftY + 'px';
+	},
+
+	onMouseUp = function(e) {
+		document.onmousemove = null;
+		document.onmouseup = null;
+
+		if ( options.onDragEnd ) {
+			options.onDragEnd(parseInt(elem.style.left), parseInt(elem.style.top));
+		}
+
+		moveObject = {};
+	};
+
+	elem.onmousedown = function(e) {
+		if ( e.which != 1 ) return;
+
+		if ( options.targetClass ) {
+			if ( !e.target.classList.contains(options.targetClass) ) return;
+		}
+
+		moveObject.downX = e.pageX;
+		moveObject.downY = e.pageY;
+		document.onmousemove = onMouseMove;
+		document.onmouseup = onMouseUp;
+	}
+}
+
+
+function resizeable(elem, options={}) {
+
+	var resizeElems = elem.querySelectorAll('.cloud-resize');
+
+	if ( options.remove ) {
+		for ( var i = 0; i < resizeElems.length; i++ ) {
+			resizeElems[i].onmousedown = null;
+		}
+		return;
+	}
+
+	var MIN_CLOUD_WIDTH = 300,
+		MIN_CLOUD_HEIGHT = 300,
+		RESIZE_SE_OFFSET =5,
+		resizeObject = {},
+
+	onMouseMove = function(e) {
+		var w = e.pageX - resizeObject.coords.left + resizeObject.paddingRight,
+			h = e.pageY - resizeObject.coords.top + resizeObject.paddingBottom;
+		if ( resizeObject.this.classList.contains('resize-e') ) {
+			if ( w > MIN_CLOUD_WIDTH ) {
+				elem.style.width = w + 'px';
+			}
+		}
+		if ( resizeObject.this.classList.contains('resize-s') ) {
+			if ( h > MIN_CLOUD_HEIGHT ) {
+				elem.style.height = h + 'px';
+			}
+		}
+		if ( resizeObject.this.classList.contains('resize-se') ) {
+			if ( w > MIN_CLOUD_WIDTH ) {
+				elem.style.width = w + RESIZE_SE_OFFSET + 'px';
+			}
+			if ( h > MIN_CLOUD_HEIGHT ) {
+				elem.style.height = h + RESIZE_SE_OFFSET + 'px';
+			}
+		}
+	},
+
+	onMouseUp = function(e) {
+		document.onmousemove = null;
+		document.onmouseup = null;
+
+		if ( options.onResizeEnd ) {
+			options.onResizeEnd(parseInt(elem.style.width), parseInt(elem.style.height));
+		}
+	},
+
+	onMouseDown = function(e) {
+		if ( e.which != 1 ) return;
+
+		resizeObject.coords = elem.getCoords();
+		resizeObject.this = this;
+
+		document.onmousemove = onMouseMove;
+		document.onmouseup = onMouseUp;
+	};
+
+	resizeObject.paddingRight = parseInt(window.getComputedStyle(elem, null).getPropertyValue('padding-right'));
+	resizeObject.paddingBottom = parseInt(window.getComputedStyle(elem, null).getPropertyValue('padding-bottom'));
+
+	for ( var i = 0; i < resizeElems.length; i++ ) {
+		resizeElems[i].onmousedown = onMouseDown;
+	}
+
+}
+
 /* Cloud obj */
 
 var Cloud = function(elem) {
 
-	var self = this;
+	var self = this,
+		lsname = 'cloud' + [].indexOf.call(elem.parentNode.children, elem) + '-',
 
-	this.divCloudWrapper = elem;
-
-	this.def = function(elem) { // set default .cloud-wrapper position if not set
+	// set default .cloud-wrapper position and sizes if not set
+	defWindowSizes = function() {
 
 		var def = {
 			width: 500,
@@ -22,23 +140,33 @@ var Cloud = function(elem) {
 		if ( !elem.style.top ) elem.style.top = def.top + 'px';
 		if ( !elem.style.width ) elem.style.width = def.width + 'px';
 		if ( !elem.style.height ) elem.style.height = def.height + 'px';
-	}
+	},
+
+	loadLocalStorage = function() {
+		if ( localStorage[lsname + 'left'] ) {
+			elem.style.left = localStorage[lsname + 'left'] + 'px';
+		}
+		if ( localStorage[lsname + 'top'] ) {
+			elem.style.top = localStorage[lsname + 'top'] + 'px';
+		}
+		if ( localStorage[lsname + 'width'] ) {
+			elem.style.width = localStorage[lsname + 'width'] + 'px';
+		}
+		if ( localStorage[lsname + 'height'] ) {
+			elem.style.height = localStorage[lsname + 'height'] + 'px';
+		}
+	};
+
+	loadLocalStorage();
+	defWindowSizes();
 
 	this.init = function() {
 
-		this.def(this.divCloudWrapper);
-
-		this.divCloudWrapper.onmousedown = this.moveOnMouseDown;
-
-		this.cloudResizeAll = this.divCloudWrapper.querySelectorAll('.cloud-resize');
-		for ( var i = 0; i < this.cloudResizeAll.length; i++ ) {
-			this.cloudResizeAll[i].onmousedown = this.resizeOnMouseDown;
-		}
-
-		this.divCloudWrapper.querySelector('.click-shuffle').onclick = function() {
+		elem.querySelector('.click-shuffle').onclick = function() {
 			self.redraw();
 		}
-		this.divCloudItems = this.divCloudWrapper.querySelector('.cloud-items');
+
+		this.divCloudItems = elem.querySelector('.cloud-items');
 		this.items = this.divCloudItems.querySelectorAll('.item');
 		this.width = this.divCloudItems.offsetWidth;
 		this.height = this.divCloudItems.offsetHeight;
@@ -52,91 +180,32 @@ var Cloud = function(elem) {
 		this.angle = 6.28 * Math.random();
 		this.step = 0.15;
 		this.elements = [];
+
 		this.resize = false;
 		this.resizeObject = {};
-		this.move = true;
-		this.moveObject = {};
+
+		// const =)
 		this.MIN_CLOUD_WIDTH = 300;
 		this.MIN_CLOUD_HEIGHT = 300;
-	}
 
-	this.moveOnMouseDown = function(e) {
-		if ( e.which != 1 ) return;
-		if ( !document.body.classList.contains('cloud-edit') ) return;
-		if ( !e.target.classList.contains('cloud-items') ) return;
-		self.moveObject.downX = e.pageX;
-		self.moveObject.downY = e.pageY;
-		self.move = true;
-		document.onmousemove = self.onMouseMove;
-		document.onmouseup = self.onMouseUp;
-		return false;
-	}
+		draggable(elem, {
+			targetClass: 'cloud-items',
+			onDragEnd: function(left, top) {
+				localStorage[lsname + 'left'] = left;
+				localStorage[lsname + 'top'] = top;
+			}
+		});
 
-	this.resizeOnMouseDown = function(e) {
-		if ( e.which != 1 ) return;
-		self.resizeObject.coords = self.divCloudWrapper.getCoords();
-		self.resizeObject.paddingRight = parseInt(window.getComputedStyle(self.divCloudWrapper, null).getPropertyValue('padding-right')),
-		self.resizeObject.paddingBottom = parseInt(window.getComputedStyle(self.divCloudWrapper, null).getPropertyValue('padding-bottom'));
-		self.resizeObject.this = this;
-		self.resize = true;
-		document.onmousemove = self.onMouseMove;
-		document.onmouseup = self.onMouseUp;
-		return false;
-	}
+		resizeable(elem, {
+			onResizeEnd: function(width, height) {
+				self.redraw();
+				localStorage[lsname + 'width'] = width;
+				localStorage[lsname + 'height'] = height;
+			}
+		});
 
-	this.onMouseMove = function(e) {
-		if ( self.move ) {
-			if ( !self.moveObject.move ) {
-				var moveX = e.pageX - self.moveObject.downX,
-					moveY = e.pageY - self.moveObject.downY,
-					coords = self.divCloudWrapper.getCoords();
-				if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
-					return;
-				}
-				self.moveObject.move = true;
-				self.moveObject.shiftX = self.moveObject.downX - coords.left;
-				self.moveObject.shiftY = self.moveObject.downY - coords.top;
-			}
-			self.divCloudWrapper.style.left = e.pageX - self.moveObject.shiftX + 'px';
-			self.divCloudWrapper.style.top = e.pageY - self.moveObject.shiftY + 'px';
-		}
-		if ( self.resize ) {
-			var w = e.pageX - self.resizeObject.coords.left  + self.resizeObject.paddingRight,
-				h = e.pageY - self.resizeObject.coords.top + self.resizeObject.paddingBottom;
-			if ( self.resizeObject.this.classList.contains('resize-e') ) {
-				if ( w > self.MIN_CLOUD_WIDTH ) {
-					self.divCloudWrapper.style.width = w + 'px';
-				}
-			}
-			if ( self.resizeObject.this.classList.contains('resize-s') ) {
-				if ( h > self.MIN_CLOUD_HEIGHT ) {
-					self.divCloudWrapper.style.height = h + 'px';
-				}
-			}
-			if ( self.resizeObject.this.classList.contains('resize-se') ) {
-				if ( w > self.MIN_CLOUD_WIDTH ) {
-					self.divCloudWrapper.style.width = w + 'px';
-				}
-				if ( h > self.MIN_CLOUD_HEIGHT ) {
-					self.divCloudWrapper.style.height = h + 'px';
-				}
-			}
-		}
-		return false;
-	}
+		//console.dir(this);
 
-	this.onMouseUp = function() {
-		document.onmousemove = null;
-		document.onmouseup = null;
-		if ( self.move ) {
-			self.move = false;
-			self.moveObject = {};
-		}
-		if ( self.resize ) {
-			self.redraw();
-			self.resize= false;
-			self.resizeObject = {};
-		}
 	}
 
 	this.isOverride = function(a, b) {
@@ -210,11 +279,11 @@ var Cloud = function(elem) {
 			item.style.left = x + 'px';
 			item.style.top = y + 'px';
 			item.classList.add('item-show');
-			item.onclick = function(e) {
+			/*item.onclick = function(e) {
 				var coords = this.getCoords();
 				this.classList.add('item-edit');
 				console.log(coords);
-			}
+			}*/
 		}
 		this.busy = false;
 		return this;
