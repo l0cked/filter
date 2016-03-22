@@ -45,6 +45,9 @@ function draggable(elem, options={}) {
 
 		moveObject.downX = e.pageX;
 		moveObject.downY = e.pageY;
+
+		console.dir(moveObject);
+
 		document.onmousemove = onMouseMove;
 		document.onmouseup = onMouseUp;
 	}
@@ -122,8 +125,120 @@ function resizeable(elem, options={}) {
 
 var Cloud = function(elem) {
 
-	var self = this,
-		lsname = 'cloud' + [].indexOf.call(elem.parentNode.children, elem) + '-',
+	var
+
+	MIN_CLOUD_WIDTH = 300,
+	MIN_CLOUD_HEIGHT = 300,
+
+	lsname = 'cloud' + [].indexOf.call(elem.parentNode.children, elem) + '-',
+
+	divCloudItems = elem.querySelector('.cloud-items'),
+	items = divCloudItems.querySelectorAll('.item'),
+	width = divCloudItems.offsetWidth,
+	height = divCloudItems.offsetHeight,
+	center = {
+		x: width / 2,
+		y: height / 2
+	},
+	aspect_ratio = width / height,
+	busy = false,
+	radius = 0,
+	angle = 6.28 * Math.random(),
+	step = 0.15,
+	elements = [],
+
+	init = function() {
+		width = divCloudItems.offsetWidth;
+		height = divCloudItems.offsetHeight;
+		center = {
+			x: width / 2,
+			y: height / 2
+		};
+		aspect_ratio = width / height;
+		radius = 0;
+		angle = 6.28 * Math.random();
+		step = 0.15;
+		elements = [];
+	},
+
+	isOverride = function(a, b) {
+		var ar = {
+				left: a.left,
+				top: a.top,
+				right: a.left + a.width,
+				bottom: a.top + a.height,
+			},
+			br = {
+				left: b.left,
+				top: b.top,
+				right: b.left + b.width,
+				bottom: b.top + b.height,
+			}
+		return !(
+			br.left > ar.right ||
+			br.right < ar.left ||
+			br.top > ar.bottom ||
+			br.bottom < ar.top
+		);
+	},
+
+	hitTest = function(index) {
+		for ( var i in elements ) {
+			if ( index == i ) continue; // if delete this str = infinity loop
+			if ( isOverride(elements[index], elements[i]) ) {
+				return true;
+			}
+		}
+		return false;
+	},
+
+	beforeDraw = function() {
+		for ( var i = 0; i < items.length; i++ ) {
+			var item = items[i],
+				w = item.offsetWidth,
+				h = item.offsetHeight,
+				left = center.x - w / 2,
+				top = center.y - h / 2;
+			elements[i] = {
+				pos: i,
+				left: left,
+				top: top,
+				width: w,
+				height: h
+			}
+			while ( hitTest(i) ) {
+				radius += step;
+				angle += (i % 2 === 0 ? 1 : -1) * step;
+				left = center.x - (w / 2) + (radius * Math.cos(angle)) * aspect_ratio;
+				top = center.y + radius * Math.sin(angle) - (h / 2);
+				left = Math.round(left * 100) / 100;
+				top = Math.round(top * 100) / 100;
+				elements[i] = {
+					pos: i,
+					left: left,
+					top: top,
+					width: w,
+					height: h
+				}
+			}
+		}
+	},
+
+	draw = function() {
+		//divCloudItems.shuffle();
+		init();
+		beforeDraw();
+		for ( var i in elements ) {
+			var element = elements[i],
+				item = items[element.pos],
+				x = element.left,
+				y = element.top;
+			item.style.left = x + 'px';
+			item.style.top = y + 'px';
+			item.classList.add('item-show');
+			draggable(item);
+		}
+	},
 
 	// set default .cloud-wrapper position and sizes if not set
 	defWindowSizes = function() {
@@ -160,148 +275,34 @@ var Cloud = function(elem) {
 	loadLocalStorage();
 	defWindowSizes();
 
-	this.init = function() {
+	// cloud-menu
+	elem.querySelector('.click-shuffle').onclick = function() {
+		draw();
+	}
 
-		elem.querySelector('.click-shuffle').onclick = function() {
-			self.redraw();
+	draggable(elem, {
+		targetClass: 'cloud-items',
+		onDragEnd: function(left, top) {
+			localStorage[lsname + 'left'] = left;
+			localStorage[lsname + 'top'] = top;
 		}
+	});
 
-		this.divCloudItems = elem.querySelector('.cloud-items');
-		this.items = this.divCloudItems.querySelectorAll('.item');
-		this.width = this.divCloudItems.offsetWidth;
-		this.height = this.divCloudItems.offsetHeight;
-		this.center = {
-			x: this.width / 2,
-			y: this.height / 2
-		};
-		this.aspect_ratio = this.width / this.height;
-		this.busy = false;
-		this.radius = 0;
-		this.angle = 6.28 * Math.random();
-		this.step = 0.15;
-		this.elements = [];
-
-		this.resize = false;
-		this.resizeObject = {};
-
-		// const =)
-		this.MIN_CLOUD_WIDTH = 300;
-		this.MIN_CLOUD_HEIGHT = 300;
-
-		draggable(elem, {
-			targetClass: 'cloud-items',
-			onDragEnd: function(left, top) {
-				localStorage[lsname + 'left'] = left;
-				localStorage[lsname + 'top'] = top;
-			}
-		});
-
-		resizeable(elem, {
-			onResizeEnd: function(width, height) {
-				self.redraw();
-				localStorage[lsname + 'width'] = width;
-				localStorage[lsname + 'height'] = height;
-			}
-		});
-
-		//console.dir(this);
-
-	}
-
-	this.isOverride = function(a, b) {
-		var ar = {
-				left: a.left,
-				top: a.top,
-				right: a.left + a.width,
-				bottom: a.top + a.height,
-			},
-			br = {
-				left: b.left,
-				top: b.top,
-				right: b.left + b.width,
-				bottom: b.top + b.height,
-			}
-		return !(
-			br.left > ar.right ||
-			br.right < ar.left ||
-			br.top > ar.bottom ||
-			br.bottom < ar.top
-		);
-	}
-	this.hitTest = function(index) {
-		for ( var i in this.elements ) {
-			if ( index == i ) continue; // if delete this str = infinity loop
-			if ( this.isOverride(this.elements[index], this.elements[i]) ) {
-				return true;
-			}
+	resizeable(elem, {
+		onResizeEnd: function(width, height) {
+			draw();
+			localStorage[lsname + 'width'] = width;
+			localStorage[lsname + 'height'] = height;
 		}
-		return false;
-	}
-	this.beforeDraw = function() {
-		for ( var i = 0; i < this.items.length; i++ ) {
-			var item = this.items[i],
-				width = item.offsetWidth,
-				height = item.offsetHeight,
-				left = this.center.x - width / 2,
-				top = this.center.y - height / 2;
-			this.elements[i] = {
-				pos: i,
-				left: left,
-				top: top,
-				width: width,
-				height: height
-			}
-			while ( this.hitTest(i) ) {
-				this.radius += this.step;
-				this.angle += (i % 2 === 0 ? 1 : -1) * this.step;
-				left = this.center.x - (width / 2) + (this.radius * Math.cos(this.angle)) * this.aspect_ratio;
-				top = this.center.y + this.radius * Math.sin(this.angle) - (height / 2);
-				left = Math.round(left * 100) / 100;
-				top = Math.round(top * 100) / 100;
-				this.elements[i] = {
-					pos: i,
-					left: left,
-					top: top,
-					width: width,
-					height: height
-				}
-			}
-		}
-	}
-	this.draw = function() {
-		this.init();
-		this.beforeDraw();
-		for ( var i in this.elements ) {
-			var element = this.elements[i],
-				item = this.items[element.pos],
-				x = element.left,
-				y = element.top;
-			item.style.left = x + 'px';
-			item.style.top = y + 'px';
-			item.classList.add('item-show');
-			/*item.onclick = function(e) {
-				var coords = this.getCoords();
-				this.classList.add('item-edit');
-				console.log(coords);
-			}*/
-		}
-		this.busy = false;
-		return this;
-	}
-	this.redraw = function() {
-		if ( !this.busy ) {
-			this.busy = true;
-			this.divCloudItems.shuffle();
-			this.draw();
-		}
-	}
+	});
+
+	draw();
+
 }
 
 /* Cloud obj end */
 
 /* main */
-
-var clouds = {};
 
 function load() {
 
@@ -317,8 +318,7 @@ function load() {
 
 		for ( var i = 0; i < divCloudWrapperAll.length; i++ ) {
 
-			clouds[i] = new Cloud(divCloudWrapperAll[i]);
-			clouds[i].draw();
+			Cloud(divCloudWrapperAll[i]);
 
 		}
 
