@@ -11,23 +11,50 @@ function draggable(elem, options={}) {
 
 	onMouseMove = function(e) {
 		if ( !moveObject.move ) {
-			var moveX = e.pageX - moveObject.downX,
-				moveY = e.pageY - moveObject.downY,
-				coords = elem.getCoords();
-			if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
-				return;
+
+			if ( options.parent ) {
+				var parent = moveObject.elem.parents(options.parent),
+					parentCoords = parent.getCoords(),
+					coords = elem.getCoords(),
+					moveX = e.pageX - coords.left,
+					moveY = e.pageY - coords.top;
+
+				if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
+					return;
+				}
+
+				moveObject.shiftX = (parentCoords.left + 30) + (moveObject.downX - coords.left);
+				moveObject.shiftY = (parentCoords.top + 30) + (moveObject.downY - coords.top);
+			} else {
+				var moveX = e.pageX - moveObject.downX,
+					moveY = e.pageY - moveObject.downY,
+					coords = elem.getCoords();
+				if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
+					return;
+				}
+				moveObject.shiftX = moveObject.downX - coords.left;
+				moveObject.shiftY = moveObject.downY - coords.top;
 			}
+
+			if ( options.setClass ) {
+				elem.classList.add(options.setClass);
+			}
+
 			moveObject.move = true;
-			moveObject.shiftX = moveObject.downX - coords.left;
-			moveObject.shiftY = moveObject.downY - coords.top;
 		}
+
 		elem.style.left = e.pageX - moveObject.shiftX + 'px';
 		elem.style.top = e.pageY - moveObject.shiftY + 'px';
-	},
+
+	}, // onMouseMove
 
 	onMouseUp = function(e) {
 		document.onmousemove = null;
 		document.onmouseup = null;
+
+		if ( options.setClass ) {
+			elem.classList.remove(options.setClass);
+		}
 
 		if ( options.onDragEnd ) {
 			options.onDragEnd(parseInt(elem.style.left), parseInt(elem.style.top));
@@ -43,10 +70,9 @@ function draggable(elem, options={}) {
 			if ( !e.target.classList.contains(options.targetClass) ) return;
 		}
 
+		moveObject.elem = this;
 		moveObject.downX = e.pageX;
 		moveObject.downY = e.pageY;
-
-		console.dir(moveObject);
 
 		document.onmousemove = onMouseMove;
 		document.onmouseup = onMouseUp;
@@ -225,7 +251,6 @@ var Cloud = function(elem) {
 	},
 
 	draw = function() {
-		//divCloudItems.shuffle();
 		init();
 		beforeDraw();
 		for ( var i in elements ) {
@@ -236,7 +261,10 @@ var Cloud = function(elem) {
 			item.style.left = x + 'px';
 			item.style.top = y + 'px';
 			item.classList.add('item-show');
-			draggable(item);
+			draggable(item, {
+				parent: 'cloud-wrapper',
+				setClass: 'item-on-drag'
+			});
 		}
 	},
 

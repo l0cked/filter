@@ -220,7 +220,8 @@ body:hover .main-menu {
   border: 1px solid transparent;
   transition: top .2s, left .2s;
   white-space: nowrap;
-  visibility: hidden; }
+  visibility: hidden;
+  box-sizing: border-box; }
   .item.item-show {
     visibility: visible; }
     .item.item-show:hover {
@@ -294,5 +295,9 @@ body:hover .main-menu {
   .item .link-v-2 {
     left: 1px;
     top: 11px; }
+
+.item-on-drag {
+  cursor: move;
+  transition: none; }
 
 /*# sourceMappingURL=style.css.map */

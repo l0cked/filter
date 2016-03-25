@@ -26,6 +26,13 @@ HTMLElement.prototype.shuffle = function() {
 	}
 }
 
-HTMLElement.prototype.resize = function() {
-	console.log(this);
+HTMLElement.prototype.parents = function(className) {
+	var p = this.parentNode;
+	while ( p !== null ) {
+		p = p.parentNode;
+		if ( p.classList.contains(className) ) {
+			return p;
+		}
+	}
 }
+
