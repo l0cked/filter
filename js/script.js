@@ -1,6 +1,6 @@
 'use strict';
 
-function draggable(elem, options={}) {
+var draggable = function(elem, options={}) {
 
 	if ( options.remove ) {
 		elem.onmousedown = null;
@@ -80,7 +80,7 @@ function draggable(elem, options={}) {
 }
 
 
-function resizeable(elem, options={}) {
+var resizeable = function(elem, options={}) {
 
 	var resizeElems = elem.querySelectorAll('.cloud-resize');
 
@@ -153,6 +153,8 @@ var Cloud = function(elem) {
 
 	var
 
+	self = this,
+
 	MIN_CLOUD_WIDTH = 300,
 	MIN_CLOUD_HEIGHT = 300,
 
@@ -174,6 +176,7 @@ var Cloud = function(elem) {
 	elements = [],
 
 	init = function() {
+		items = divCloudItems.querySelectorAll('.item');
 		width = divCloudItems.offsetWidth;
 		height = divCloudItems.offsetHeight;
 		center = {
@@ -250,24 +253,6 @@ var Cloud = function(elem) {
 		}
 	},
 
-	draw = function() {
-		init();
-		beforeDraw();
-		for ( var i in elements ) {
-			var element = elements[i],
-				item = items[element.pos],
-				x = element.left,
-				y = element.top;
-			item.style.left = x + 'px';
-			item.style.top = y + 'px';
-			item.classList.add('item-show');
-			draggable(item, {
-				parent: 'cloud-wrapper',
-				setClass: 'item-on-drag'
-			});
-		}
-	},
-
 	// set default .cloud-wrapper position and sizes if not set
 	defWindowSizes = function() {
 
@@ -298,14 +283,38 @@ var Cloud = function(elem) {
 		if ( localStorage[lsname + 'height'] ) {
 			elem.style.height = localStorage[lsname + 'height'] + 'px';
 		}
+	},
+
+	draw = function() {
+
+		divCloudItems.shuffle();
+
+		init();
+		beforeDraw();
+
+		for ( var i in elements ) {
+			var element = elements[i],
+				item = items[element.pos],
+				x = element.left,
+				y = element.top;
+			item.style.left = x + 'px';
+			item.style.top = y + 'px';
+			item.classList.add('item-show');
+			draggable(item, {
+				parent: 'cloud-wrapper',
+				setClass: 'item-on-drag'
+			});
+		}
 	};
+
+	this.draw = draw;
 
 	loadLocalStorage();
 	defWindowSizes();
 
-	// cloud-menu
+	// cloud-menu .shuffle
 	elem.querySelector('.click-shuffle').onclick = function() {
-		draw();
+		self.draw();
 	}
 
 	draggable(elem, {
@@ -318,7 +327,7 @@ var Cloud = function(elem) {
 
 	resizeable(elem, {
 		onResizeEnd: function(width, height) {
-			draw();
+			self.draw();
 			localStorage[lsname + 'width'] = width;
 			localStorage[lsname + 'height'] = height;
 		}
@@ -332,6 +341,9 @@ var Cloud = function(elem) {
 
 /* main */
 
+var divCloudWrapperAll = document.querySelectorAll('.cloud-wrapper'),
+	clouds = {};
+
 function load() {
 
 	var imgElem = document.querySelector('.bg-img'),
@@ -342,14 +354,9 @@ function load() {
 		imgElem.removeAttribute('data-src');
 		imgElem.setAttribute('src', this.src);
 
-		var divCloudWrapperAll = document.querySelectorAll('.cloud-wrapper');
-
 		for ( var i = 0; i < divCloudWrapperAll.length; i++ ) {
-
-			Cloud(divCloudWrapperAll[i]);
-
+			clouds[i] = new Cloud(divCloudWrapperAll[i]);
 		}
-
 		document.body.classList.add('load');
 
 	}
@@ -362,8 +369,8 @@ document.addEventListener('DOMContentLoaded', load);
 var mainMenu = document.querySelector('.main-menu');
 
 mainMenu.querySelector('.click-shuffle').onclick = function() {
-	for( var i in clouds ) {
-		clouds[i].redraw();
+	for ( var i in clouds ) {
+		clouds[i].draw();
 	}
 }
 

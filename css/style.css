@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   -webkit-user-drag: none;
+  -moz-user-select: none;
   -webkit-user-select: none; }
 
 html, body {
@@ -99,7 +100,7 @@ body:hover .main-menu {
     height: 48px;
     text-align: center;
     text-shadow: 0 0 5px #ffc107;
-    border: 1px dashed rgba(255, 255, 255, 0.3);
+    border: 1px solid #4a4a4a;
     border-radius: 30px;
     background: rgba(0, 0, 0, 0.2);
     transition: all .1s; }
@@ -134,9 +135,9 @@ body:hover .main-menu {
   display: block; }
 .cloud-edit .cloud-items {
   cursor: move;
-  overflow: hidden;
-  border: 1px dashed #4a4a4a;
   background: rgba(255, 255, 255, 0.1); }
+.cloud-edit .item {
+  cursor: move; }
 
 .cloud-wrapper {
   position: absolute;
@@ -205,9 +206,7 @@ body:hover .main-menu {
 .cloud-items {
   position: relative;
   width: 100%;
-  height: 100%;
-  border: 1px solid transparent;
-  box-sizing: border-box; }
+  height: 100%; }
 
 /* ITEM */
 .item {
@@ -222,10 +221,10 @@ body:hover .main-menu {
   white-space: nowrap;
   visibility: hidden;
   box-sizing: border-box; }
+  .item:hover {
+    border: 1px dashed #4a4a4a; }
   .item.item-show {
     visibility: visible; }
-    .item.item-show:hover {
-      border: 1px dashed rgba(255, 255, 255, 0.3); }
   .item.item-sockets {
     padding-left: 17px; }
   .item p {
@@ -297,7 +296,6 @@ body:hover .main-menu {
     top: 11px; }
 
 .item-on-drag {
-  cursor: move;
   transition: none; }
 
 /*# sourceMappingURL=style.css.map */
