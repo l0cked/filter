@@ -3,21 +3,34 @@
 var draggable = function(elem, options={}) {
 
 	if ( options.remove ) {
-		elem.onmousedown = null;
+		elem.removeEventListener('mousedown', onDown, false);
 		return;
 	}
 
 	var moveObject = {},
 
-	onMouseMove = function(e) {
+	onMove = function(e) {
+
+		var x, y;
+
+		if ( e.type == 'touchmove' ) {
+			x = e.changedTouches[0].pageX;
+			y = e.changedTouches[0].pageY;
+		} else
+
+		if ( e.type == 'mousemove' ) {
+			x = e.pageX;
+			y = e.pageY;
+		}
+
 		if ( !moveObject.move ) {
 
 			if ( options.parent ) {
-				var parent = moveObject.elem.parents(options.parent),
+				var parent = moveObject.elem.parents(options.parent), // touch error !!!
 					parentCoords = parent.getCoords(),
 					coords = elem.getCoords(),
-					moveX = e.pageX - coords.left,
-					moveY = e.pageY - coords.top;
+					moveX = x - coords.left,
+					moveY = y - coords.top;
 
 				if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
 					return;
@@ -26,8 +39,8 @@ var draggable = function(elem, options={}) {
 				moveObject.shiftX = (parentCoords.left + 30) + (moveObject.downX - coords.left);
 				moveObject.shiftY = (parentCoords.top + 30) + (moveObject.downY - coords.top);
 			} else {
-				var moveX = e.pageX - moveObject.downX,
-					moveY = e.pageY - moveObject.downY,
+				var moveX = x - moveObject.downX,
+					moveY = y - moveObject.downY,
 					coords = elem.getCoords();
 				if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
 					return;
@@ -43,14 +56,14 @@ var draggable = function(elem, options={}) {
 			moveObject.move = true;
 		}
 
-		elem.style.left = e.pageX - moveObject.shiftX + 'px';
-		elem.style.top = e.pageY - moveObject.shiftY + 'px';
+		elem.style.left = x - moveObject.shiftX + 'px';
+		elem.style.top = y - moveObject.shiftY + 'px';
 
-	}, // onMouseMove
+	},
 
-	onMouseUp = function(e) {
-		document.onmousemove = null;
-		document.onmouseup = null;
+	onUp = function() {
+		document.removeEventListener('mousemove', onMove, false);
+		document.removeEventListener('mouseup', onUp, false);
 
 		if ( options.setClass ) {
 			elem.classList.remove(options.setClass);
@@ -61,22 +74,35 @@ var draggable = function(elem, options={}) {
 		}
 
 		moveObject = {};
-	};
+	},
 
-	elem.onmousedown = function(e) {
-		if ( e.which != 1 ) return;
+	onDown = function(e) {
+		if ( e.type != 'touchstart' && e.which != 1 ) return;
 
 		if ( options.targetClass ) {
 			if ( !e.target.classList.contains(options.targetClass) ) return;
 		}
 
 		moveObject.elem = this;
-		moveObject.downX = e.pageX;
-		moveObject.downY = e.pageY;
 
-		document.onmousemove = onMouseMove;
-		document.onmouseup = onMouseUp;
-	}
+		if ( e.type == 'touchstart' ) {
+			moveObject.downX = e.changedTouches[0].pageX;
+			moveObject.downY = e.changedTouches[0].pageY;
+			document.addEventListener('touchmove', onMove, false);
+			document.addEventListener('touchend', onUp, false);
+		} else
+
+		if ( e.type == 'mousedown' ) {
+			moveObject.downX = e.pageX;
+			moveObject.downY = e.pageY;
+			document.addEventListener('mousemove', onMove, false);
+			document.addEventListener('mouseup', onUp, false);
+		}
+
+	};
+
+	elem.addEventListener('mousedown', onDown, false);
+	elem.addEventListener('touchstart', onDown, false);
 }
 
 
