@@ -58,5 +58,4 @@
 .icon-shuffle:before { content: '\e800'; } /* '' */
 .icon-plus:before { content: '\e801'; } /* '' */
 .icon-edit:before { content: '\e802'; } /* '' */
-.icon-check:before { content: '\e803'; } /* '' */
-.icon-check-empty:before { content: '\e804'; } /* '' */
+.icon-delete:before { content: '\e803'; } /* '' */
