@@ -77,6 +77,8 @@ var draggable = function(elem, options={}) {
 	},
 
 	onDown = function(e) {
+		if ( !document.body.classList.contains('cloud-edit') ) return;
+
 		if ( e.type != 'touchstart' && e.which != 1 ) return;
 
 		if ( options.targetClass ) {
@@ -155,6 +157,8 @@ var resizeable = function(elem, options={}) {
 	},
 
 	onMouseDown = function(e) {
+		if ( !document.body.classList.contains('cloud-edit') ) return;
+
 		if ( e.which != 1 ) return;
 
 		resizeObject.coords = elem.getCoords();
@@ -184,7 +188,8 @@ var Cloud = function(elem) {
 	MIN_CLOUD_WIDTH = 300,
 	MIN_CLOUD_HEIGHT = 300,
 
-	lsname = 'cloud' + [].indexOf.call(elem.parentNode.children, elem) + '-',
+	//lsname = 'cloud' + [].indexOf.call(elem.parentNode.children, elem) + '-',
+	lsname = 'cloud-',
 
 	divCloudItems = elem.querySelector('.cloud-items'),
 	items = divCloudItems.querySelectorAll('.item'),

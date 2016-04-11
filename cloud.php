@@ -2,13 +2,15 @@
 
 function echo_cloud_menu() {
 	return <<<EOF
-	<div class="cloud-menu menu">
+	<div class="menu cloud-menu">
 		<ul>
 			<li class="click-shuffle">
-				<div class="icon-shuffle" data-title="Перемешать"></div>
+				<span class="icon-shuffle"></span>
+				<p>Перемешать</p>
 			</li>
 			<li class="click-delete">
-				<div class="icon-delete" data-title="Удалить"></div>
+				<span class="icon-delete"></span>
+				<p>Удалить</p>
 			</li>
 		</ul>
 	</div>

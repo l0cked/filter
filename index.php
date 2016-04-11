@@ -25,33 +25,21 @@
 		<img class="bg-img" data-src="img/bg.png" alt="background">
 	</div>
 
-	<div class="main-menu menu">
+	<div class="menu main-menu">
 		<ul>
-			<li class="click-plus"><div class="icon-plus" data-title="Добавить"></div></li>
-			<li class="click-shuffle"><div class="icon-shuffle" data-title="Перемешать"></div></li>
-			<li class="click-edit"><div class="icon-edit" data-title="Редактировать"></div></li>
+			<li>
+				<span class="icon-plus"></span>
+				<p>Добавить</p>
+			</li>
+			<li class="click-shuffle">
+				<span class="icon-shuffle"></span>
+				<p>Перемешать</p>
+			</li>
+			<li class="click-edit">
+				<span class="icon-edit"></span>
+				<p>Редактировать</p>
+			</li>
 		</ul>
-	</div>
-
-	<div class="cloud-wrapper" style="left:450px; top:80px; width:300px; height:300px;">
-		<div class="cloud">
-			<div class="cloud-menu menu">
-				<ul>
-					<li class="click-shuffle">
-						<div class="icon-shuffle" data-title="Перемешать"></div>
-					</li>
-				</ul>
-			</div>
-			<div class="cloud-resize resize-e"><span></span></div>
-			<div class="cloud-resize resize-se"><span></span></div>
-			<div class="cloud-resize resize-s"><span></span></div>
-			<div class="cloud-items">
-				<div class="item"><p>Свиток мудрости</p></div>
-				<div class="item"><p>Свиток портала</p></div>
-				<div class="item"><p>Деталь доспеха</p></div>
-				<div class="item"><p>Точильный камень</p></div>
-			</div>
-		</div>
 	</div>
 
 	<?php

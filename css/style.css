@@ -67,65 +67,73 @@ pre.pre-error {
   opacity: 1; }
 
 /* MENU */
-body:hover .main-menu {
-  opacity: 1;
-  visibility: visible; }
-
-.main-menu {
-  opacity: 0;
-  visibility: hidden;
-  transition: all .1s; }
-
 .menu {
   position: fixed;
-  bottom: 0;
-  right: 0;
-  padding: 30px; }
+  bottom: 20px;
+  right: 20px;
+  color: #af6025;
+  text-shadow: 0 0 3px #af6025; }
   .menu ul {
     list-style: none; }
   .menu li {
-    margin-bottom: 5px; }
-  .menu li:hover div:after {
-    right: 100%;
-    opacity: 1;
-    visibility: visible; }
-  .menu div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    font-size: 18px;
-    color: #cddc39;
-    min-width: 48px;
-    height: 48px;
+    height: 40px;
+    width: 40px;
+    margin-bottom: 5px; }
+    .menu li:hover span {
+      background: rgba(255, 255, 255, 0.2); }
+    .menu li:hover p {
+      opacity: 1;
+      color: #fff;
+      visibility: visible; }
+    .menu li:active span {
+      top: 1px;
+      background: rgba(255, 255, 255, 0.3); }
+  .menu span {
+    position: absolute;
+    right: 0;
+    width: 40px;
+    height: 40px;
     text-align: center;
-    text-shadow: 0 0 5px #ffc107;
-    border: 1px solid #4a4a4a;
-    border-radius: 30px;
-    background: rgba(0, 0, 0, 0.2);
+    line-height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    box-sizing: border-box;
     transition: all .1s; }
-    .menu div:hover {
-      background: rgba(0, 0, 0, 0.3); }
-    .menu div:after {
-      content: attr(data-title);
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 75%;
-      display: flex;
-      align-items: center;
-      padding-right: 10px;
-      color: #ffff77;
-      font-family: 'Friz Quadrata ITC';
-      font-size: 14px;
-      opacity: 0;
-      text-shadow: none;
-      visibility: hidden;
-      transition: all .1s; }
-    .menu div:active {
-      border-color: rgba(0, 0, 0, 0.9);
-      background: rgba(0, 0, 0, 0.9);
-      transform: translateY(1px) scale(0.991); }
+  .menu p {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    font-family: 'Friz Quadrata ITC';
+    font-size: 15px;
+    text-align: right;
+    line-height: 40px;
+    visibility: hidden;
+    transition: all .1s; }
+
+.main-menu p {
+  right: 50%;
+  padding-left: 20px;
+  padding-right: 5px; }
+.main-menu li:hover p {
+  right: 100%; }
+
+.cloud-menu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 10px;
+  padding: 0;
+  padding-right: 100px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .1s; }
+  .cloud-menu p {
+    left: 50%;
+    padding-left: 5px;
+    padding-right: 20px; }
+  .cloud-menu li:hover p {
+    left: 100%; }
 
 /* CLOUD */
 .cloud-edit .cloud-wrapper:hover .cloud-menu {
@@ -135,7 +143,8 @@ body:hover .main-menu {
   display: block; }
 .cloud-edit .cloud-items {
   cursor: move;
-  background: rgba(255, 255, 255, 0.1); }
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px dashed rgba(255, 255, 255, 0.15); }
 .cloud-edit .item {
   cursor: move; }
 
@@ -154,25 +163,6 @@ body:hover .main-menu {
   height: 100%;
   opacity: 1;
   box-sizing: border-box; }
-
-.cloud-menu {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  margin-left: 10px;
-  padding: 0;
-  padding-right: 100px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all .1s; }
-  .cloud-menu li:hover div:after {
-    left: 100%; }
-  .cloud-menu div:after {
-    top: 0;
-    bottom: 0;
-    left: 75%;
-    padding: 0;
-    padding-left: 10px; }
 
 .cloud-resize {
   display: none;
@@ -206,7 +196,8 @@ body:hover .main-menu {
 .cloud-items {
   position: relative;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  border: 1px solid transparent; }
 
 /* ITEM */
 .item {
