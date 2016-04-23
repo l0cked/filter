@@ -261,7 +261,7 @@ pre.pre-error {
 	cursor: url(../cursor/00001.0x1409.cur), default;
 	background: rgba(0,0,0,.7);
 	border: 1px solid transparent;
-	transition: top .2s, left .2s;
+	transition: top .2s ease, left .2s ease;
 	white-space: nowrap;
 	visibility: hidden;
 	box-sizing: border-box;

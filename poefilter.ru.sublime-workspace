@@ -1,0 +1,840 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pos",
+				"pos:a	position:absolute"
+			],
+			[
+				"ws",
+				"whs	white-space"
+			],
+			[
+				"item",
+				"itemDomain"
+			],
+			[
+				"itemf",
+				"itemFaviconStyle"
+			],
+			[
+				"c",
+				"classList"
+			],
+			[
+				"a",
+				"appendChild"
+			],
+			[
+				"p",
+				"p:0	padding:0"
+			],
+			[
+				"d",
+				"divName"
+			],
+			[
+				"his",
+				"historyItems"
+			],
+			[
+				"bz",
+				"bxz	box-sizing"
+			],
+			[
+				"ls",
+				"lis	list-style"
+			],
+			[
+				"arra",
+				"array"
+			],
+			[
+				"br",
+				"bdrz	border-radius"
+			],
+			[
+				"co",
+				"contains"
+			],
+			[
+				"echo",
+				"echo_cloud_menu"
+			],
+			[
+				"site",
+				"sitedown"
+			],
+			[
+				"file",
+				"filepath"
+			],
+			[
+				"ec",
+				"echo_array"
+			],
+			[
+				"fi",
+				"filename"
+			],
+			[
+				"hu",
+				"human_filesize"
+			],
+			[
+				"ch",
+				"changedTouches"
+			],
+			[
+				"touch",
+				"touchmove"
+			],
+			[
+				"do",
+				"document"
+			],
+			[
+				"add",
+				"addEventListener"
+			],
+			[
+				"ele",
+				"elements"
+			],
+			[
+				"eleme",
+				"elements"
+			],
+			[
+				"sta",
+				"stash"
+			],
+			[
+				"url",
+				"urlnext"
+			],
+			[
+				"nex",
+				"next_change_id"
+			],
+			[
+				"js",
+				"json_decode"
+			],
+			[
+				"div",
+				"divCloudItems"
+			],
+			[
+				"dra",
+				"draw"
+			],
+			[
+				"dvi",
+				"divCloudWrapperAll"
+			],
+			[
+				"cal",
+				"classList"
+			],
+			[
+				"se",
+				"setClass"
+			],
+			[
+				"shi",
+				"shiftX"
+			],
+			[
+				"move",
+				"moveObject"
+			],
+			[
+				"pa",
+				"parentCoords"
+			],
+			[
+				"cl",
+				"cl	console.log()"
+			],
+			[
+				"page",
+				"pageX"
+			],
+			[
+				"pare",
+				"parentCoords"
+			],
+			[
+				"mo",
+				"moveY"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"elem",
+				"elem"
+			],
+			[
+				"ge",
+				"getCoords"
+			],
+			[
+				"cla",
+				"className"
+			],
+			[
+				"ca",
+				"classList"
+			],
+			[
+				"get",
+				"getParents"
+			],
+			[
+				"la",
+				"layerX"
+			],
+			[
+				"loa",
+				"loadLocalStorage"
+			],
+			[
+				"las",
+				"lsname"
+			],
+			[
+				"wh",
+				"whichChild"
+			],
+			[
+				"getC",
+				"getChildNumber"
+			],
+			[
+				"res",
+				"resizeElems"
+			],
+			[
+				"re",
+				"redraw"
+			],
+			[
+				"MI",
+				"MIN_CLOUD_HEIGHT"
+			],
+			[
+				"onM",
+				"onMouseDown"
+			],
+			[
+				"setT",
+				"setTimeout(func, delay)	Window"
+			],
+			[
+				"tar",
+				"targetClass"
+			],
+			[
+				"local",
+				"localStorage"
+			],
+			[
+				"onMouse",
+				"moveOnMouseMove"
+			],
+			[
+				"moveOn",
+				"moveOnMouseMove"
+			],
+			[
+				"on",
+				"onmousedown"
+			],
+			[
+				"Cloud",
+				"CloudNum"
+			],
+			[
+				"cos",
+				"console"
+			],
+			[
+				"va",
+				"value"
+			],
+			[
+				"cloud",
+				"cloudElem"
+			],
+			[
+				"MIN",
+				"MIN_CLOUD_WIDTH"
+			],
+			[
+				"MAX",
+				"MAX_CLOUD_WIDTH"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"resiz",
+				"resizeObject"
+			],
+			[
+				"clo",
+				"cloudResizeAll"
+			],
+			[
+				"darg",
+				"dragObject"
+			],
+			[
+				"po",
+				"pos:r	position:relative"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"ba",
+				"background-image"
+			],
+			[
+				"no",
+				"no-repeat"
+			],
+			[
+				"tra",
+				"transition"
+			],
+			[
+				"t",
+				"true"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Chrome/NewTab/manifest.json",
+			"settings":
+			{
+				"buffer_size": 241,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Chrome/NewTab/newtab.html",
+			"settings":
+			{
+				"buffer_size": 216,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Chrome/NewTab/script.js",
+			"settings":
+			{
+				"buffer_size": 2048,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Chrome/NewTab/style.scss",
+			"settings":
+			{
+				"buffer_size": 1348,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 575,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Package Control Messages\n========================\n\nCSS3\n----\n\n  Thank you for installing CSS3! It's strongly recommended that you disable the\n  default CSS package, as its completions will interfere with the improved CSS3\n  completions.\n  \n  Mac:           cmd+shift+p  -> Package Control: Disable Package -> CSS\n  Linux/Windows: ctrl+shift+p -> Package Control: Disable Package -> CSS\n  \n  If you have Emmet installed, its completions will drown out the completions\n  in CSS3. You can disable Emmet's completions by adding the following lines\n  to your Emmet package settings:\n  \n  	\"show_css_completions\": false,\n  	\"disable_tab_abbreviations_for_scopes\": \"source.css\"\n  \n  That's it. Enjoy the plugin. If you have any problems, please open an issue on\n  GitHub and I'll fix it as soon as I can.\n  \n  	https://github.com/y0ssar1an/CSS3/issues\n",
+			"settings":
+			{
+				"buffer_size": 845,
+				"line_ending": "Windows",
+				"name": "Package Control Messages",
+				"read_only": true,
+				"scratch": true
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Disable Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: console.log()"
+			]
+		],
+		"width": 386.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Chrome/NewTab"
+	],
+	"file_history":
+	[
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/CSS3/CSS3.sublime-settings",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/AutoFileName/autofilename.sublime-settings",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/Emmet/Emmet.sublime-settings",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/C/Chrome/showHistory/typedUrls.js",
+		"/C/Chrome/NewTab/manifest.json",
+		"/C/Chrome/NewTab/newtab.html",
+		"/C/Chrome/NewTab/script.js",
+		"/C/OpenServer/domains/prech5.ru/css/prech5.scss",
+		"/C/OpenServer/domains/prech5.ru/index.php",
+		"/C/OpenServer/domains/prech5.ru/php/db.php",
+		"/C/OpenServer/domains/prech5.ru/php/etc.php",
+		"/C/OpenServer/domains/prech5.ru/js/script.js",
+		"/C/OpenServer/domains/prech5.ru/php/get.php",
+		"/C/OpenServer/domains/prech5.ru/index2.php",
+		"/C/OpenServer/domains/prech5.ru/php/_coldfilm.php",
+		"/C/OpenServer/domains/poefilter.ru/css/style.scss",
+		"/C/OpenServer/domains/poefilter.ru/poefilter.ru.sublime-project",
+		"/C/Winginx/home/prech5.ru/public_html/index.php",
+		"/C/Winginx/home/prech5.ru/public_html/php/db.php",
+		"/C/Winginx/home/prech5.ru/public_html/php/array_column.php",
+		"/C/Winginx/home/poefilter.ru/public_html/css/style.scss",
+		"/C/Winginx/home/poefilter.ru/public_html/js/script.js",
+		"/C/Winginx/home/poefilter.ru/public_html/cloud.php",
+		"/C/Winginx/home/poefilter.ru/public_html/index.php",
+		"/C/Winginx/home/1poehud.ru/public_html/css/poehud.scss",
+		"/C/Winginx/home/1poehud.ru/public_html/download/index.php",
+		"/C/Winginx/home/1poehud.ru/public_html/index.php",
+		"/C/Winginx/home/poefilter.ru/public_html/css/fontello.css",
+		"/C/Winginx/home/poefilter.ru/public_html/echo.php",
+		"/C/Winginx/home/poefilter.ru/public_html/css/style.css",
+		"/C/Winginx/home/1poehud.ru/public_html/etc.php",
+		"/C/Winginx/home/poefilter2.ru/public_html/index.php",
+		"/C/Winginx/home/poefilter.ru/public_html/filter.php",
+		"/C/Winginx/home/poefilter.ru/public_html/index.html",
+		"/C/Winginx/home/1poehud.ru/public_html/d.php",
+		"/C/Winginx/home/1poehud.ru/public_html/404.php",
+		"/C/Winginx/home/1poehud.ru/public_html/css/poehud.css",
+		"/C/Winginx/home/1poehud.ru/public_html/css/poehud2.css",
+		"/C/Winginx/home/1poehud.ru/public_html/.htaccess",
+		"/C/Winginx/home/1poehud.ru/public_html/download/index.html",
+		"/C/Winginx/home/1poehud.ru/public_html/index.html",
+		"/C/Winginx/home/poefilter.ru/public_html/js/prototype.js",
+		"/C/ph2/PoEHUD-master/config/currency.txt",
+		"/C/ph2/PoEHUD-master/config/ZiggyLoot_v2_2.filter",
+		"/C/Winginx/home/poeapi.ru/public_html/css/style.scss",
+		"/C/Winginx/home/poeapi.ru/public_html/js/script.js",
+		"/C/Winginx/home/poeapi.ru/public_html/index.php",
+		"/C/Winginx/home/poeapi.ru/public_html/echo.php",
+		"/C/Winginx/home/1poehud.ru/public_html/css/style.scss",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/User/2.sublime-snippet",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/User/1.sublime-snippet",
+		"/D/Download/patch.diff (1).txt",
+		"/D/Download/patch.diff.txt",
+		"/C/Winginx/home/poefilter2.ru/public_html/js/script.js",
+		"/C/Winginx/home/poefilter2.ru/public_html/js/script2.js",
+		"/C/Winginx/home/poefilter.ru/public_html/poefilter/.gitattributes",
+		"/C/Winginx/home/poefilter.ru/public_html/poefilter/.gitignore",
+		"/C/ph4/PoEHUD-master/config/preload_alerts.txt",
+		"/C/Winginx/home/poefilter.ru/public_html/js/drag.js",
+		"/C/Winginx/home/poefilter.ru/public_html/js/resize.js",
+		"/C/Winginx/home/poefilter.ru/public_html/css/style2.scss",
+		"/C/Winginx/home/poefilter.ru/public_html/js/jqcloud-1.0.4.js",
+		"/C/Winginx/home/poefilter.ru/public_html/js/script2.js",
+		"/C/Winginx/home/poefilter.ru/public_html/js/jquery-ui.js",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/User/Emmet.sublime-settings",
+		"/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/LiveStyle/LiveStyle.sublime-settings",
+		"/C/Winginx/home/poefilter.ru/public_html/css/style2.css"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"auto_comp",
+			"auto",
+			"data",
+			"divName",
+			"date",
+			"cloud-menu",
+			"menu",
+			"cloud-edit",
+			"lsname",
+			"localStorage",
+			"$str",
+			"border",
+			"dashed",
+			"lsname",
+			"draggable",
+			"this.divCloudWrapper",
+			"redraw",
+			"cloudElem",
+			"drag",
+			"self",
+			"divCloudWrapper",
+			"self",
+			"getCoords",
+			"resizable",
+			"item",
+			"fold"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"array",
+			"className",
+			"$data",
+			"elem",
+			"divCloudWrapperAll",
+			"move",
+			"elem",
+			"cloud"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Chrome/NewTab/manifest.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								148,
+								148
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Chrome/NewTab/newtab.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 216,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								175,
+								175
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Chrome/NewTab/script.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2048,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1687,
+								1687
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 54.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "/C/Chrome/NewTab/style.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1348,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								338,
+								338
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Syntax Highlighting for Sass/Syntaxes/SCSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/zombox/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 575,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								574,
+								574
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 845,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								580,
+								580
+							]
+						],
+						"settings":
+						{
+							"auto_indent": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_width": 2,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.535149384885,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 120.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/SASS Build/SASS.sublime-build",
+	"project": "poefilter.ru.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 1,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 213.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
