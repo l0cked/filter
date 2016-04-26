@@ -1,6 +1,60 @@
 <?php
 
-function echo_cloud_menu() {
+$default_items = array(
+	'Свиток мудрости',
+	'Свиток портала',
+	'Деталь доспеха',
+	'Точильный камень',
+	'Стекольная масса',
+	'Резец картографа',
+	'Призма камнереза',
+	'Сфера златокузнеца',
+	'Цветная сфера',
+	'Сфера соединения',
+	'Сфера превращения',
+	'Сфера удачи',
+	'Сфера алхимии',
+	'Сфера царей',
+	'Сфера усиления',
+	'Сфера возвышения',
+	'Сфера перемен',
+	'Сфера хаоса',
+	'Благодатная сфера',
+	'Божественная сфера',
+	'Сфера очищения',
+	'Зеркало Каландры',
+	'Сфера раскаяния',
+	array(
+		'title' => 'Сфера ваал',
+		'color' => 'rgb(210,0,0)'
+	),
+	array(
+		'title' => 'Цепочка',
+		'color' => 'rgb(175,96,37)'
+	),
+	array(
+		'title' => 'Искажённый Кобальтовый самоцвет эффективности',
+		'color' => 'rgb(136,136,255)'
+	),
+	array(
+		'title' => 'Потусторонний меч высокого качества',
+		'color' => 'rgb(255,255,119)',
+		'sockets' => array(
+			's' => 6,
+			'l' => 6
+		)
+	),
+	array(
+		'title' => 'Вендору отдай',
+		'color' => 'rgb(175,96,37)',
+		'sockets' => array(
+			's' => 4,
+			'l' => 0
+		)
+	)
+	);
+
+function cloud_menu() {
 	return <<<EOF
 	<div class="menu cloud-menu">
 		<ul>
@@ -17,67 +71,88 @@ function echo_cloud_menu() {
 EOF;
 }
 
-function echo_cloud_items() {
+function cloud_sockets($socket_count, $link_count) {
+	/*
+	<li class="socket-1 socket-red"></li>
+	<li class="socket-2 socket-blue"></li>
+	<li class="socket-3 socket-blue"></li>
+	<li class="socket-4 socket-blue"></li>
+	<li class="socket-5 socket-green"></li>
+	<li class="socket-6 socket-blue"></li>
+	<li class="link-1"></li>
+	<li class="link-2"></li>
+	<li class="link-3"></li>
+	<li class="link-4"></li>
+	<li class="link-5"></li>
+	*/
+	if ( $socket_count <= 2 ) {
+		$className = 'sockets-2';
+	} else if ( $socket_count <= 4 ) {
+		$className = 'sockets-4';
+	}
+	if ( $className ) {
+		$className = ' class="' . $className . '"';
+	}
+	$ret = '<ul' . $className . '>';
+
+	if ( $socket_count > 0 ) {
+		for ( $i=0; $i <= $socket_count; $i++ ) {
+			$ret .= '<li class="socket-' . $i . ' socket-blue"></li>';
+		}
+	}
+
+	if ( $link_count > 0 ) {
+		if ( $link_count >= $socket_count ) {
+			$link_count = $socket_count - 1;
+		}
+		for ( $i=0; $i <= $link_count; $i++ ) {
+			$ret .= '<li class="link-' . $i . '"></li>';
+		}
+	}
+
+	$ret .= '</ul>';
+	return $ret;
+}
+
+function cloud_items() {
+	global $default_items;
+
+	foreach ( $default_items as $item ) {
+		$style = '';
+		if ( is_array($item) ) {
+			$item_title = $item['title'];
+			if ( $item['color'] ) {
+				$style .= 'style="color: ' . $item['color'] . ';"';
+			}
+			if ( $item['sockets'] ) {
+				$className = ' item-sockets';
+			}
+			$default .= '
+			<div class="item' . $className . '">
+				<p class="item-title"' . $style . '>' . $item_title . '</p>';
+			if ( $item['sockets'] ) {
+				//$default .= cloud_sockets(rand(1,6), rand(1,5));
+				$default .= cloud_sockets($item['sockets']['s'], $item['sockets']['l']);
+			}
+			$default .= '</div>';
+		} else {
+			$default .= '
+			<div class="item">
+				<p class="item-title"' . $style . '>' . $item . '</p>
+			</div>';
+		}
+	}
+
 	return <<<EOF
 	<div class="cloud-items">
-		<div class="item"><p>Свиток мудрости</p></div>
-		<div class="item"><p>Свиток портала</p></div>
-		<div class="item"><p>Деталь доспеха</p></div>
-		<div class="item"><p>Точильный камень</p></div>
-		<div class="item"><p>Стекольная масса</p></div>
-		<div class="item"><p>Резец картографа</p></div>
-		<div class="item"><p>Призма камнереза</p></div>
-		<div class="item"><p>Сфера златокузнеца</p></div>
-		<div class="item"><p>Цветная сфера</p></div>
-		<div class="item"><p>Сфера соединения</p></div>
-		<div class="item"><p>Сфера превращения</p></div>
-		<div class="item"><p>Сфера удачи</p></div>
-		<div class="item"><p>Сфера алхимии</p></div>
-		<div class="item"><p>Сфера царей</p></div>
-		<div class="item"><p>Сфера усиления</p></div>
-		<div class="item"><p>Сфера возвышения</p></div>
-		<div class="item"><p>Сфера перемен</p></div>
-		<div class="item"><p>Сфера хаоса</p></div>
-		<div class="item"><p>Благодатная сфера</p></div>
-		<div class="item"><p>Божественная сфера</p></div>
-		<div class="item"><p>Сфера очищения</p></div>
-		<div class="item"><p>Зеркало Каландры</p></div>
-		<div class="item"><p>Сфера раскаяния</p></div>
-		<div class="item item-corrupted"><p>Сфера ваал</p></div>
-		<div class="item item-magic"><p>Искажённый Кобальтовый самоцвет эффективности</p></div>
-		<div class="item item-unique"><p>Цепочка</p></div>
-		<div class="item item-sockets">
-			<p style="color:rgb(175,96,37);">Вендору отдай</p>
-			<ul class="sockets-4">
-				<li class="socket-1 socket-red"></li>
-				<li class="socket-2 socket-blue"></li>
-				<li class="socket-3 socket-blue"></li>
-				<li class="socket-4 socket-blue"></li>
-			</ul>
-		</div>
-		<div class="item item-sockets item-rare">
-			<p>Потусторонний меч высокого качества</p>
-			<ul>
-				<li class="socket-1 socket-red"></li>
-				<li class="socket-2 socket-blue"></li>
-				<li class="socket-3 socket-blue"></li>
-				<li class="socket-4 socket-blue"></li>
-				<li class="socket-5 socket-green"></li>
-				<li class="socket-6 socket-blue"></li>
-				<li class="link-h-1"></li>
-				<li class="link-h-2"></li>
-				<li class="link-h-3"></li>
-				<li class="link-v-1"></li>
-				<li class="link-v-2"></li>
-			</ul>
-		</div>
+		$default
 	</div>
 EOF;
 }
 
 function echo_cloud() {
-	$menu = echo_cloud_menu();
-	$items = echo_cloud_items();
+	$menu = cloud_menu();
+	$items = cloud_items();
 	echo <<<EOF
 	<div class="cloud-wrapper">
 		<div class="cloud">

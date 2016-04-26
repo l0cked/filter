@@ -83,11 +83,6 @@ pre.pre-error {
 /* MENU */
 
 .menu {
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	color: rgb(175,96,37);
-	text-shadow: 0 0 3px rgb(175,96,37);
 	ul {
 		list-style: none;
 	}
@@ -106,7 +101,7 @@ pre.pre-error {
 				visibility: visible;
 			}
 		}
-		&:active {
+		&:active, &.active {
 			span {
 				top: 1px;
 				background: rgba(255,255,255,.3);
@@ -119,7 +114,9 @@ pre.pre-error {
 		width: 40px;
 		height: 40px;
 		text-align: center;
+		text-shadow: 0 0 3px #d20000;
 		line-height: 40px;
+		color: #ffff77;
 		background: rgba(255,255,255,.1);
 		border: 1px dashed rgba(255,255,255,.15);
 		box-sizing: border-box;
@@ -139,6 +136,9 @@ pre.pre-error {
 }
 
 .main-menu {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
 	p {
 		right: 50%;
 		padding-left: 20px;
@@ -154,7 +154,7 @@ pre.pre-error {
 	top: 0;
 	left: 100%;
 	margin-left: 10px;
-	padding: 0;
+	height: 100%;
 	padding-right: 100px;
 	opacity: 0;
 	visibility: hidden;
@@ -214,6 +214,7 @@ pre.pre-error {
 	display: none;
 	position: absolute;
 	z-index: 1;
+	box-sizing: border-box;
 	&.resize-e {
 		top: 0;
 		bottom: 0;
@@ -249,6 +250,7 @@ pre.pre-error {
 	width: 100%;
 	height: 100%;
 	border: 1px solid transparent;
+	box-sizing: border-box;
 }
 
 /* ITEM */
@@ -261,7 +263,7 @@ pre.pre-error {
 	cursor: url(../cursor/00001.0x1409.cur), default;
 	background: rgba(0,0,0,.7);
 	border: 1px solid transparent;
-	transition: top .2s ease, left .2s ease;
+	transition: all .2s;
 	white-space: nowrap;
 	visibility: hidden;
 	box-sizing: border-box;
@@ -274,22 +276,10 @@ pre.pre-error {
 	&.item-sockets {
 		padding-left: 17px;
 	}
-	p {
+	.item-title {
 		font-family: 'Friz Quadrata ITC';
 		font-size: 18px;
 		color: rgb(127,127,127);
-	}
-	&.item-rare p {
-		color: rgb(255,255,119);
-	}
-	&.item-magic p {
-		color: rgb(136,136,255);
-	}
-	&.item-unique p {
-		color: rgb(175,96,37);
-	}
-	&.item-corrupted p {
-		color: rgb(210,0,0);
 	}
 	ul {
 		position: relative;
@@ -340,29 +330,29 @@ pre.pre-error {
 	.socket-blue {
 		background: rgb(88,130,254);
 	}
-	.link-h-1,.link-h-2,.link-h-3 {
+	.link-1,.link-3,.link-5 {
 		left: 4px;
 		width: 3px;
 		height: 2px;
 	}
-	.link-h-1 {
+	.link-1 {
 		top: 1px;
 	}
-	.link-h-2 {
+	.link-3 {
 		top: 8px;
 	}
-	.link-h-3 {
+	.link-5 {
 		top: 15px;
 	}
-	.link-v-1,.link-v-2 {
+	.link-2,.link-4 {
 		width: 2px;
 		height: 3px;
 	}
-	.link-v-1 {
+	.link-2 {
 		left: 8px;
 		top: 4px;
 	}
-	.link-v-2 {
+	.link-4 {
 		left: 1px;
 		top: 11px;
 	}
@@ -370,4 +360,13 @@ pre.pre-error {
 
 .item-on-drag {
 	transition: none;
+	&:active {
+		z-index: 999;
+		background: #000;
+		transform: scale(1.05);
+	}
+}
+
+.item-open {
+
 }

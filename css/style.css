@@ -67,63 +67,63 @@ pre.pre-error {
   opacity: 1; }
 
 /* MENU */
-.menu {
+.menu ul {
+  list-style: none; }
+.menu li {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  margin-bottom: 5px; }
+  .menu li:hover span {
+    background: rgba(255, 255, 255, 0.2); }
+  .menu li:hover p {
+    opacity: 1;
+    color: #fff;
+    visibility: visible; }
+  .menu li:active span, .menu li.active span {
+    top: 1px;
+    background: rgba(255, 255, 255, 0.3); }
+.menu span {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  text-shadow: 0 0 3px #d20000;
+  line-height: 40px;
+  color: #ffff77;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  box-sizing: border-box;
+  transition: all .1s; }
+.menu p {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  font-family: 'Friz Quadrata ITC';
+  font-size: 15px;
+  text-align: right;
+  line-height: 40px;
+  visibility: hidden;
+  transition: all .1s; }
+
+.main-menu {
   position: fixed;
   bottom: 20px;
-  right: 20px;
-  color: #af6025;
-  text-shadow: 0 0 3px #af6025; }
-  .menu ul {
-    list-style: none; }
-  .menu li {
-    position: relative;
-    height: 40px;
-    width: 40px;
-    margin-bottom: 5px; }
-    .menu li:hover span {
-      background: rgba(255, 255, 255, 0.2); }
-    .menu li:hover p {
-      opacity: 1;
-      color: #fff;
-      visibility: visible; }
-    .menu li:active span {
-      top: 1px;
-      background: rgba(255, 255, 255, 0.3); }
-  .menu span {
-    position: absolute;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px dashed rgba(255, 255, 255, 0.15);
-    box-sizing: border-box;
-    transition: all .1s; }
-  .menu p {
-    position: absolute;
-    top: 0;
-    opacity: 0;
-    font-family: 'Friz Quadrata ITC';
-    font-size: 15px;
-    text-align: right;
-    line-height: 40px;
-    visibility: hidden;
-    transition: all .1s; }
-
-.main-menu p {
-  right: 50%;
-  padding-left: 20px;
-  padding-right: 5px; }
-.main-menu li:hover p {
-  right: 100%; }
+  right: 20px; }
+  .main-menu p {
+    right: 50%;
+    padding-left: 20px;
+    padding-right: 5px; }
+  .main-menu li:hover p {
+    right: 100%; }
 
 .cloud-menu {
   position: absolute;
   top: 0;
   left: 100%;
   margin-left: 10px;
-  padding: 0;
+  height: 100%;
   padding-right: 100px;
   opacity: 0;
   visibility: hidden;
@@ -167,7 +167,8 @@ pre.pre-error {
 .cloud-resize {
   display: none;
   position: absolute;
-  z-index: 1; }
+  z-index: 1;
+  box-sizing: border-box; }
   .cloud-resize.resize-e {
     top: 0;
     bottom: 0;
@@ -197,7 +198,8 @@ pre.pre-error {
   position: relative;
   width: 100%;
   height: 100%;
-  border: 1px solid transparent; }
+  border: 1px solid transparent;
+  box-sizing: border-box; }
 
 /* ITEM */
 .item {
@@ -208,7 +210,7 @@ pre.pre-error {
   cursor: url(../cursor/00001.0x1409.cur), default;
   background: rgba(0, 0, 0, 0.7);
   border: 1px solid transparent;
-  transition: top .2s ease, left .2s ease;
+  transition: all .2s;
   white-space: nowrap;
   visibility: hidden;
   box-sizing: border-box; }
@@ -218,18 +220,10 @@ pre.pre-error {
     visibility: visible; }
   .item.item-sockets {
     padding-left: 17px; }
-  .item p {
+  .item .item-title {
     font-family: 'Friz Quadrata ITC';
     font-size: 18px;
     color: #7f7f7f; }
-  .item.item-rare p {
-    color: #ffff77; }
-  .item.item-magic p {
-    color: #8888ff; }
-  .item.item-unique p {
-    color: #af6025; }
-  .item.item-corrupted p {
-    color: #d20000; }
   .item ul {
     position: relative;
     margin-left: 7px;
@@ -266,27 +260,31 @@ pre.pre-error {
     background: #9ecb0d; }
   .item .socket-blue {
     background: #5882fe; }
-  .item .link-h-1, .item .link-h-2, .item .link-h-3 {
+  .item .link-1, .item .link-3, .item .link-5 {
     left: 4px;
     width: 3px;
     height: 2px; }
-  .item .link-h-1 {
+  .item .link-1 {
     top: 1px; }
-  .item .link-h-2 {
+  .item .link-3 {
     top: 8px; }
-  .item .link-h-3 {
+  .item .link-5 {
     top: 15px; }
-  .item .link-v-1, .item .link-v-2 {
+  .item .link-2, .item .link-4 {
     width: 2px;
     height: 3px; }
-  .item .link-v-1 {
+  .item .link-2 {
     left: 8px;
     top: 4px; }
-  .item .link-v-2 {
+  .item .link-4 {
     left: 1px;
     top: 11px; }
 
 .item-on-drag {
   transition: none; }
+  .item-on-drag:active {
+    z-index: 999;
+    background: #000;
+    transform: scale(1.05); }
 
 /*# sourceMappingURL=style.css.map */

@@ -13,10 +13,7 @@
 	<link rel="stylesheet" href="css/fontello.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
-<!-- <body> -->
-<body class="cloud-edit">
-	<?include 'cloud.php';?>
-
+<body>
 	<div class="loader">
 		<img src="img/loader.gif" alt="loader">
 	</div>
@@ -27,14 +24,6 @@
 
 	<div class="menu main-menu">
 		<ul>
-			<li>
-				<span class="icon-plus"></span>
-				<p>Добавить</p>
-			</li>
-			<li class="click-shuffle">
-				<span class="icon-shuffle"></span>
-				<p>Перемешать</p>
-			</li>
 			<li class="click-edit">
 				<span class="icon-edit"></span>
 				<p>Редактировать</p>
@@ -43,6 +32,9 @@
 	</div>
 
 	<?php
+
+	include 'echo.php';
+	include 'cloud.php';
 
 	echo_cloud();
 

@@ -1,182 +1,5 @@
 'use strict';
 
-var draggable = function(elem, options={}) {
-
-	if ( options.remove ) {
-		elem.removeEventListener('mousedown', onDown, false);
-		return;
-	}
-
-	var moveObject = {},
-
-	onMove = function(e) {
-
-		var x, y;
-
-		if ( e.type == 'touchmove' ) {
-			x = e.changedTouches[0].pageX;
-			y = e.changedTouches[0].pageY;
-		} else
-
-		if ( e.type == 'mousemove' ) {
-			x = e.pageX;
-			y = e.pageY;
-		}
-
-		if ( !moveObject.move ) {
-
-			if ( options.parent ) {
-				var parent = moveObject.elem.parents(options.parent), // touch error !!!
-					parentCoords = parent.getCoords(),
-					coords = elem.getCoords(),
-					moveX = x - coords.left,
-					moveY = y - coords.top;
-
-				if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
-					return;
-				}
-
-				moveObject.shiftX = (parentCoords.left + 30) + (moveObject.downX - coords.left);
-				moveObject.shiftY = (parentCoords.top + 30) + (moveObject.downY - coords.top);
-			} else {
-				var moveX = x - moveObject.downX,
-					moveY = y - moveObject.downY,
-					coords = elem.getCoords();
-				if ( Math.abs(moveX) < 3 && Math.abs(moveY) < 3 ) {
-					return;
-				}
-				moveObject.shiftX = moveObject.downX - coords.left;
-				moveObject.shiftY = moveObject.downY - coords.top;
-			}
-
-			if ( options.setClass ) {
-				elem.classList.add(options.setClass);
-			}
-
-			moveObject.move = true;
-		}
-
-		elem.style.left = x - moveObject.shiftX + 'px';
-		elem.style.top = y - moveObject.shiftY + 'px';
-
-	},
-
-	onUp = function() {
-		document.removeEventListener('mousemove', onMove, false);
-		document.removeEventListener('mouseup', onUp, false);
-
-		if ( options.setClass ) {
-			elem.classList.remove(options.setClass);
-		}
-
-		if ( options.onDragEnd ) {
-			options.onDragEnd(parseInt(elem.style.left), parseInt(elem.style.top));
-		}
-
-		moveObject = {};
-	},
-
-	onDown = function(e) {
-		if ( !document.body.classList.contains('cloud-edit') ) return;
-
-		if ( e.type != 'touchstart' && e.which != 1 ) return;
-
-		if ( options.targetClass ) {
-			if ( !e.target.classList.contains(options.targetClass) ) return;
-		}
-
-		moveObject.elem = this;
-
-		if ( e.type == 'touchstart' ) {
-			moveObject.downX = e.changedTouches[0].pageX;
-			moveObject.downY = e.changedTouches[0].pageY;
-			document.addEventListener('touchmove', onMove, false);
-			document.addEventListener('touchend', onUp, false);
-		} else
-
-		if ( e.type == 'mousedown' ) {
-			moveObject.downX = e.pageX;
-			moveObject.downY = e.pageY;
-			document.addEventListener('mousemove', onMove, false);
-			document.addEventListener('mouseup', onUp, false);
-		}
-
-	};
-
-	elem.addEventListener('mousedown', onDown, false);
-	elem.addEventListener('touchstart', onDown, false);
-}
-
-
-var resizeable = function(elem, options={}) {
-
-	var resizeElems = elem.querySelectorAll('.cloud-resize');
-
-	if ( options.remove ) {
-		for ( var i = 0; i < resizeElems.length; i++ ) {
-			resizeElems[i].onmousedown = null;
-		}
-		return;
-	}
-
-	var MIN_CLOUD_WIDTH = 300,
-		MIN_CLOUD_HEIGHT = 300,
-		RESIZE_SE_OFFSET =5,
-		resizeObject = {},
-
-	onMouseMove = function(e) {
-		var w = e.pageX - resizeObject.coords.left + resizeObject.paddingRight,
-			h = e.pageY - resizeObject.coords.top + resizeObject.paddingBottom;
-		if ( resizeObject.this.classList.contains('resize-e') ) {
-			if ( w > MIN_CLOUD_WIDTH ) {
-				elem.style.width = w + 'px';
-			}
-		}
-		if ( resizeObject.this.classList.contains('resize-s') ) {
-			if ( h > MIN_CLOUD_HEIGHT ) {
-				elem.style.height = h + 'px';
-			}
-		}
-		if ( resizeObject.this.classList.contains('resize-se') ) {
-			if ( w > MIN_CLOUD_WIDTH ) {
-				elem.style.width = w + RESIZE_SE_OFFSET + 'px';
-			}
-			if ( h > MIN_CLOUD_HEIGHT ) {
-				elem.style.height = h + RESIZE_SE_OFFSET + 'px';
-			}
-		}
-	},
-
-	onMouseUp = function(e) {
-		document.onmousemove = null;
-		document.onmouseup = null;
-
-		if ( options.onResizeEnd ) {
-			options.onResizeEnd(parseInt(elem.style.width), parseInt(elem.style.height));
-		}
-	},
-
-	onMouseDown = function(e) {
-		if ( !document.body.classList.contains('cloud-edit') ) return;
-
-		if ( e.which != 1 ) return;
-
-		resizeObject.coords = elem.getCoords();
-		resizeObject.this = this;
-
-		document.onmousemove = onMouseMove;
-		document.onmouseup = onMouseUp;
-	};
-
-	resizeObject.paddingRight = parseInt(window.getComputedStyle(elem, null).getPropertyValue('padding-right'));
-	resizeObject.paddingBottom = parseInt(window.getComputedStyle(elem, null).getPropertyValue('padding-bottom'));
-
-	for ( var i = 0; i < resizeElems.length; i++ ) {
-		resizeElems[i].onmousedown = onMouseDown;
-	}
-
-}
-
 /* Cloud obj */
 
 var Cloud = function(elem) {
@@ -187,9 +10,6 @@ var Cloud = function(elem) {
 
 	MIN_CLOUD_WIDTH = 300,
 	MIN_CLOUD_HEIGHT = 300,
-
-	//lsname = 'cloud' + [].indexOf.call(elem.parentNode.children, elem) + '-',
-	lsname = 'cloud-',
 
 	divCloudItems = elem.querySelector('.cloud-items'),
 	items = divCloudItems.querySelectorAll('.item'),
@@ -302,17 +122,34 @@ var Cloud = function(elem) {
 	},
 
 	loadLocalStorage = function() {
-		if ( localStorage[lsname + 'left'] ) {
-			elem.style.left = localStorage[lsname + 'left'] + 'px';
+		if ( localStorage['cloud-left'] ) {
+			elem.style.left = localStorage['cloud-left'] + 'px';
 		}
-		if ( localStorage[lsname + 'top'] ) {
-			elem.style.top = localStorage[lsname + 'top'] + 'px';
+		if ( localStorage['cloud-top'] ) {
+			elem.style.top = localStorage['cloud-top'] + 'px';
 		}
-		if ( localStorage[lsname + 'width'] ) {
-			elem.style.width = localStorage[lsname + 'width'] + 'px';
+		if ( localStorage['cloud-width'] ) {
+			elem.style.width = localStorage['cloud-width'] + 'px';
 		}
-		if ( localStorage[lsname + 'height'] ) {
-			elem.style.height = localStorage[lsname + 'height'] + 'px';
+		if ( localStorage['cloud-height'] ) {
+			elem.style.height = localStorage['cloud-height'] + 'px';
+		}
+	},
+
+	itemClick = function() {
+		if ( document.body.classList.contains('cloud-edit') ) return;
+		this.toggleClass('item-open');
+	},
+
+	itemsEvents = function () {
+		for ( var i in elements ) {
+			var element = elements[i],
+				item = items[element.pos];
+			item.drag({
+				parent: 'cloud-wrapper',
+				setClass: 'item-on-drag'
+			});
+			item.addEventListener('click', itemClick, false);
 		}
 	},
 
@@ -331,10 +168,6 @@ var Cloud = function(elem) {
 			item.style.left = x + 'px';
 			item.style.top = y + 'px';
 			item.classList.add('item-show');
-			draggable(item, {
-				parent: 'cloud-wrapper',
-				setClass: 'item-on-drag'
-			});
 		}
 	};
 
@@ -348,24 +181,25 @@ var Cloud = function(elem) {
 		self.draw();
 	}
 
-	draggable(elem, {
+	elem.drag({
 		targetClass: 'cloud-items',
 		onDragEnd: function(left, top) {
-			localStorage[lsname + 'left'] = left;
-			localStorage[lsname + 'top'] = top;
+			localStorage['cloud-left'] = left;
+			localStorage['cloud-top'] = top;
 		}
 	});
 
-	resizeable(elem, {
+	elem.resize({
 		onResizeEnd: function(width, height) {
 			self.draw();
-			localStorage[lsname + 'width'] = width;
-			localStorage[lsname + 'height'] = height;
+			localStorage['cloud-width'] = width;
+			localStorage['cloud-height'] = height;
 		}
 	});
 
 	draw();
 
+	itemsEvents();
 }
 
 /* Cloud obj end */
@@ -388,6 +222,7 @@ function load() {
 		for ( var i = 0; i < divCloudWrapperAll.length; i++ ) {
 			clouds[i] = new Cloud(divCloudWrapperAll[i]);
 		}
+
 		document.body.classList.add('load');
 
 	}
@@ -398,12 +233,6 @@ document.addEventListener('DOMContentLoaded', load);
 /* main-menu */
 
 var mainMenu = document.querySelector('.main-menu');
-
-mainMenu.querySelector('.click-shuffle').onclick = function() {
-	for ( var i in clouds ) {
-		clouds[i].draw();
-	}
-}
 
 mainMenu.querySelector('.click-edit').onclick = function() {
 	document.body.toggleClass('cloud-edit');
